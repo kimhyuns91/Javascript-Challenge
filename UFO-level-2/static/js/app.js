@@ -38,22 +38,26 @@ function enter (){
     d3.event.preventDefault();
 
     // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#datetime");
+    var inputElement = d3.select("#filter-button");
 
     // Get the value property of the input element
     var inputValue = inputElement.property("value");
 
     console.log(inputValue);  
 
-    var filteredData = tableData.filter(date => date.datetime === inputValue);
-
+    // Select data from data table that matches with input variable
+    var filteredData = tableData.filter(ufoData => ufoData.datetime === inputValue ||
+                                                   ufoData.city === inputValue ||
+                                                   ufoData.state === inputValue ||
+                                                   ufoData.country === inputValue ||
+                                                   ufoData.shape === inputValue);
     console.log(filteredData);
-
+    
     // Loop through each matched object to add a row in the table
     filteredData.forEach(newDataRow => {
 
         var newRow = tbody.append("tr");
-
+        
         //Grab the values within the  object to append in the table
         Object.entries(newDataRow).forEach(([key, value]) => {
             console.log(key, value);
